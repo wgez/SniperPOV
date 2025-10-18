@@ -24,7 +24,7 @@ bool WaitForClientDll(int timeout) { // time in ms
 		Sleep(500);
 		time_elapsed += 500;
 	}
-	return NULL;
+	return false;
 }
 
 DWORD search_pattern(const char* pattern, const char* mask)
@@ -88,13 +88,13 @@ DWORD WINAPI entry(LPVOID lpparam)
 {
 	// Allow client.dll to load (60000 ms / 60 s)
 	if (!WaitForClientDll(60000)) {
-		MessageBox(NULL, "Failed to hook!\nLoading Client.dll exceeded timeout limit!\n(try again, or contact dev)", "Sniper POV", MB_SYSTEMMODAL);
+		MessageBox(NULL, "Failed to hook!\nLoading Client.dll exceeded timeout limit (60s).\n(try again, or contact dev)", "Sniper POV", MB_SYSTEMMODAL);
 		return -1;
 	}
 
 	auto sig = search_pattern("\x55\x8B\xEC\x83\xEC\x08\x56\x57\x8B\x7D\x08\x8B\xF1\x83\xFF\x20", "xxxxxxxxxxxxxxxx");
 	if (sig == NULL) {
-		MessageBox(NULL, "Failed to hook!\nSIG pattern could not be found\n(an update may have broken it, contact dev)", "Sniper POV", MB_SYSTEMMODAL);
+		MessageBox(NULL, "Failed to hook!\nSIG pattern could not be found.\n(an update may have broken it, contact dev)", "Sniper POV", MB_SYSTEMMODAL);
 		return -1;
 	}
 
@@ -103,13 +103,13 @@ DWORD WINAPI entry(LPVOID lpparam)
 	// UPDATED SIGNATURES POST-OCTOBER 18th 2025
 	wearable_draw = search_pattern("\xE8????\x84\xC0\x0F\x85????\x6A\x03\x8B\xCB\xE8????\x84\xC0\x0F\x84????", "x????xxxx????xxxxx????xxxx????") + 5;
 	if (wearable_draw == NULL) {
-		MessageBox(NULL, "Failed to hook!\nWearable_draw pattern could not be found\n(an update may have broken it, contact dev)", "Sniper POV", MB_SYSTEMMODAL);
+		MessageBox(NULL, "Failed to hook!\nWearable_draw pattern could not be found.\n(an update may have broken it, contact dev)", "Sniper POV", MB_SYSTEMMODAL);
 		return -1;
 	}
 
 	player_draw = search_pattern("\xE8????\x84\xC0\x74?\x5E\x32\xC0\x5B\xC3", "x????xxx?xxxxx") + 5;
 	if (player_draw == NULL) {
-		MessageBox(NULL, "Failed to hook!\nPlayer_draw pattern could not be found\n(an update may have broken it, contact dev)", "Sniper POV", MB_SYSTEMMODAL);
+		MessageBox(NULL, "Failed to hook!\nPlayer_draw pattern could not be found.\n(an update may have broken it, contact dev)", "Sniper POV", MB_SYSTEMMODAL);
 		return -1;
 	}
 
@@ -134,7 +134,6 @@ DWORD WINAPI entry(LPVOID lpparam)
 		return -1;
 	}
 
-	MessageBox(NULL, "Successful hook!", "Sniper POV", MB_SYSTEMMODAL);
 	return 0;
 }
 
