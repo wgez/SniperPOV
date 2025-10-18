@@ -12,8 +12,22 @@ It will require running as admin if your TF2 is.
 ## DO NOT RUN WITHOUT INSECURE MODE
 
 This project injects into Team Fortress 2, and is not obfuscated at all. 
-Using this without -insecure mode will probably get you VAC banned. 
+Using this without -insecure mode will get you VAC banned. 
 
 ## Updates
 
-This should be pretty stable for TF2 updates but if it breaks please make an issue, and I'll try to fix it as soon as I can.
+The stability of this tool is vulnerable to TF2 updates, so if it breaks please make an issue.
+
+## How to Build (for developers)
+1. Install GIT bash (to obtain source code) - https://git-scm.com/downloads
+2. Install Visual Studio (not Visual Studio Code) with "Desktop development with C++" - https://visualstudio.microsoft.com/
+3. From within Visual Studio, obtain the source code from this repository into a folder you like (Clone a Repository option, upon startup).
+4. In a separate instance (can restart VS), obtain the source code for Microsoft Detours (https://github.com/microsoft/Detours).
+4a. Build Detours for x86 (Build -> Build Solution). It will generate a "detours.lib" file at "[your repos location]/Detours/lib.X86/".
+5. Reopen the SniperPOV project (with SniperPOV.sln).
+6. Open the Configuration Manager (Build -> Configuration Manager...).
+6a. Change "Active solution configuration" to "Release" and "Active solution platform" to "x86.
+6b. Confirm below that "Configuration" is set to "Release" and "Platform" is set to "Win32". 
+7. Go to Project -> Properties -> Linker -> Additional Library Directories: add the directorry that contains detours.lib.
+8. Build -> Build Solution. This will generate a SniperPOV.dll file at "[your repos location]/SniperPOV/SniperPOV/Release" (note: there is no injector file supplied by this code).
+Note: These are the assumed steps. Notify if it needs to be amended.
