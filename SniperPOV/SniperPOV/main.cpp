@@ -76,9 +76,10 @@ DWORD WINAPI entry(LPVOID lpparam)
 	
 	// Find the CALL instructions to the incond and add 5 to get the address they will be returning to
 
-	wearable_draw = search_pattern("\xE8????\x84\xC0\x75\xE1\x6A\x03", "x????xxxxxx") + 5;
+	// UPDATED SIGNATURES POST-OCTOBER 18th 2025
+	wearable_draw = search_pattern("\xE8????\x84\xC0\x0F\x85????\x6A\x03", "x????xxxx????xx") + 5;
 	
-	player_draw = search_pattern("\xE8????\x84\xC0\x75\xC5", "x????xxxx") + 5;
+	player_draw = search_pattern("\xE8????\x84\xC0\x74?\x5E", "x????xxx?x") + 5;
 
 	oInCond= (tInCond)(sig);
 
