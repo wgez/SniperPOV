@@ -19,6 +19,7 @@ DWORD search_pattern(const char* pattern, const char* mask)
 	MODULEINFO info = {};
 	auto hmod = GetModuleHandle("client.dll");
 	if (hmod == nullptr) {
+		MessageBox(NULL, "client.dll couldn't load yet (probably code error, contact dev)", "Sniper POV", MB_SYSTEMMODAL);
 		return NULL;
 	}
 	GetModuleInformation(GetCurrentProcess(), hmod, &info, sizeof(MODULEINFO));
@@ -71,14 +72,17 @@ bool __fastcall hInCond(void* ecx, void* edx, ETFCond cond) {
 
 DWORD WINAPI entry(LPVOID lpparam)
 {
+	// ISSUE FIX: search_pattern can't load client.dll the first call, but it works every time after that
+	// A dummy call fixes this (I tried a timeout method, but that didn't work for some reason.)
+	auto dummy = search_pattern("\x55", "x");
 
 	auto sig = search_pattern("\x55\x8B\xEC\x83\xEC\x08\x56\x57\x8B\x7D\x08\x8B\xF1\x83\xFF\x20", "xxxxxxxxxxxxxxxx");
-	
+
 	// Find the CALL instructions to the incond and add 5 to get the address they will be returning to
 
 	// UPDATED SIGNATURES POST-OCTOBER 18th 2025
 	wearable_draw = search_pattern("\xE8????\x84\xC0\x0F\x85????\x6A\x03\x8B\xCB\xE8????\x84\xC0\x0F\x84????", "x????xxxx????xxxxx????xxxx????") + 5;
-	
+
 	player_draw = search_pattern("\xE8????\x84\xC0\x74?\x5E\x32\xC0\x5B\xC3", "x????xxx?xxxxx") + 5;
 
 	oInCond= (tInCond)(sig);
