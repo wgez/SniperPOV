@@ -1,18 +1,17 @@
 # SniperPOV
 
-
-By default, in a POV demo, TF2 makes the local sniper invisible when you scope in. This is a small loader that fixes that. 
+By default, in a POV demo, TF2 makes the local sniper invisible when you scope in. This is a small loader that fixes that.
 Meant to be used alongside HLAE.
 
-Usage: 
+# Instructions 
 
-Launch TF2 and inject HLAE, either through HLAE's custom loader, or through Lawena. Then run injector.exe. Or your own injector.
-It will require running as admin if your TF2 is.
+Method 1 (HLAE only): Open HLAE's custom loader and add this SniperPOV.dll to the list of dlls, then press OK to launch.
+Method 2 (HLAE & Lawena): You need a special version of Lawena, which can be obtained here: https://github.com/wgez/lawena-recording-tool/releases.
+Method 3 (RISKY - HLAE & Injector): If you have an injector file and know what you're doing, you can inject SniperPOV.dll after launching HLAE. Heed the warning below.
 
 ## DO NOT RUN WITHOUT INSECURE MODE
 
-This project injects into Team Fortress 2, and is not obfuscated at all. 
-Using this without -insecure mode will get you VAC banned. 
+If you want to inject this without HLAE, DO NOT FORGET TO USE INSECURE MODE. You WILL be VAC banned if you forget and accidentally join a VAC protected server.
 
 ## Updates
 
